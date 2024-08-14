@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TACS Challenge 2024</title>
+    <meta name="description" content="Cybersecurity challenges created by Deepak Sir and Dani Sir. Test your skills and learn from the best!">
+    <meta name="keywords" content="cybersecurity, hacking, max, challenges, training, Deepak Sir, Dani Sir, TACS , Mahendra Mali , mahendraplus">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #000;
+            color: #0f0;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border: 1px solid #0f0; /* Green border */
+            border-radius: 12px;
+            box-shadow: 0 0 0px rgba(0, 255, 0, 0.6); /* Green glow */
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0f0; /* Green text */
+            font-size: 40px;
+            margin: 0;
+            padding: 10px 0;
+            text-shadow: 0 0 15px #0f0;
+            animation: flicker 1.5s infinite, glitch 2s infinite;
+        }
+
+        .entry {
+            margin-bottom: 20px;
+            border: 1px solid #0f0; /* Green border */
+            border-radius: 8px;
+            padding: 20px;
+            background-color: rgba(0, 255, 0, 0.1); /* Green background */
+            box-shadow: 0 0 12px rgba(0, 255, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .entry:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.6);
+        }
+
+        .entry h2 {
+            font-size: 28px;
+            margin: 0 0 10px;
+            color: #0f0; /* Green text */
+        }
+
+        .entry p {
+            margin: 0 0 15px;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #0f0; /* Green background */
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: #0c0; /* Darker green on hover */
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pagination button {
+            margin: 0 10px;
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #0f0; /* Green background */
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .pagination button:hover {
+            background-color: #0c0; /* Darker green on hover */
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .description {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            color: #0f0; /* Green text */
+        }
+
+        .description p {
+            margin: 0;
+        }
+
+        /* Animations */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0 0 5px #0f0; }
+            25% { text-shadow: -2px 2px 5px #0f0; }
+            50% { text-shadow: 2px -2px 5px #0f0; }
+            75% { text-shadow: -2px -2px 5px #0f0; }
+            100% { text-shadow: 0 0 5px #0f0; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .entry h2 {
+                font-size: 24px;
+            }
+
+            button, .pagination button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>TACS Challenge</h1>
+<center><p>Welcome to TACS Challenge. This platform is crafted to enhance your cybersecurity skills through diverse and engaging challenges. Designed by Deepak Sir, a renowned expert in cybersecurity and tech, these exercises will test and expand your knowledge. Dive in and conquer each challenge!</p></center>
+    <div id="entries"></div>
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+    <div class="description">
+        <p>Crafted for cybersecurity enthusiasts. Challenges by Deepak Sir
+master of tech and security.</p>
+     
+    </div>
+</div>
+
+<script>
+    const url = '/link.json'; // The URL of your JSON data
+    const entriesPerPage = 10;
+    let currentPage = 1;
+    let data = [];
+
+    function loadEntries() {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(json => {
+                data = json;
+                displayEntries();
+            })
+            .catch(error => console.error('Error loading JSON data:', error));
+    }
+
+    function displayEntries() {
+        if (data.length === 0) {
+            document.getElementById('entries').innerHTML = '<p>Loading data...</p>';
+            return;
+        }
+        
+        const start = (currentPage - 1) * entriesPerPage;
+        const end = start + entriesPerPage;
+        const entriesContainer = document.getElementById('entries');
+        entriesContainer.innerHTML = '';
+
+        data.slice(start, end).forEach(entry => {
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'entry';
+            entryDiv.innerHTML = `
+                <h2>${entry.topic}</h2>
+                <p>Level: ${entry.level}</p>
+                <button onclick="window.open('${entry.url}', '_blank')">Explore Challenge</button>
+            `;
+            entriesContainer.appendChild(entryDiv);
+        });
+
+        document.getElementById('prevBtn').style.display = currentPage === 1 ? 'none' : 'inline-block';
+        document.getElementById('nextBtn').style.display = end >= data.length ? 'none' : 'inline-block';
+    }
+
+    function changePage(direction) {
+        currentPage += direction;
+        displayEntries();
+    }
+
+    loadEntries();
+</script>
+
+</body>
+</html>
+

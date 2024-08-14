@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TA-CW : Challenge #1 Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            background-color: white;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .text-input{
+            width: 15rem;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        button{
+            padding: 0.5rem 2rem;
+            font-size: 1.5rem;
+        }
+
+        .d-none{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to TA-CW Prep : Challenge #1</h1>
+        <nav>
+            <ul>
+                <li><a href="/?route=home.html">Home</a></li>
+                <li><a href="/?route=syllabus.html">Syllabus</a></li>
+                <li><a href="/?route=about-us.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Introduction</h2>
+        <p>This is an introductory web challenge for the TA-CW Prep skill assesment.</p>
+        <p>Look around, and see if you can find the password.</p>
+        <br><br>
+        <form method="POST" action="/">
+            <h3>Password</h3>
+            <p class="d-none">{{ERROR_STR}}</p>
+            <input class="text-input" type="password" name="password" style="width: 15rem;" />
+            <button type="submit">Check</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>With ♥ from JNVBK Alumni</p>
+    </footer>
+</body>
+</html>
