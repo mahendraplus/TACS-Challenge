@@ -167,7 +167,8 @@ master of tech and security.</p>
 </div>
 
 <script>
-    const url = 'process.env.DATA_URL'; // The URL of your JSON data
+   // The URL of your JSON data
+    const url = process.env.DATA_URL;
     const entriesPerPage = 10;
     let currentPage = 1;
     let data = [];
